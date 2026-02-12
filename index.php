@@ -3,7 +3,7 @@
 require("database.php");
 
     $queryBooklists = '
-        SELECT TITLE, AUTHOR, GENRE, PUBLICATIONYEAR, DATEADDED';
+        SELECT title, author, genre, publicationyear, dateadded FROM booklists';
  
     $statement = $db->prepare($queryBooklists);
     $statement->execute();
