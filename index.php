@@ -29,7 +29,7 @@ require("database.php");
                     <th>title</th>
                     <th>author</th>
                     <th>genre</th>
-                    <th>publicationyearr</th>
+                    <th>publicationyear</th>
                     <th>dateadded</th>
                     
                 </tr>
