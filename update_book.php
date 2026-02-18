@@ -1,17 +1,18 @@
 <?php
-session_start();
+    session_start();
 
+    require_once('database.php');
 
-$title = filter_input(INPUT_POST, 'title');
-$author = filter_input(INPUT_POST, 'author');
-$genre = filter_input(INPUT_POST, 'genre');
-$publicationyear = filter_input(INPUT_POST, 'publicationyear');
-$dateadded = filter_input(INPUT_POST, 'dateadded');
+    $book_Id = filter_input(INPUT_POST, 'book_id', FILTER_VALIDATE_INT);
 
-require_once('database.php');
+    $title = filter_input(INPUT_POST, 'title');
+    $author = filter_input(INPUT_POST, 'author');
+    $genre = filter_input(INPUT_POST, 'genre');
+    $publicationyear = filter_input(INPUT_POST, 'publicationyear');
+    $dateadded = filter_input(INPUT_POST, 'dateadded');
 
-
-$querybooklists = '
+   
+    $querybooklists = '
        SELECT bookId, title, author, genre, publicationyear, dateadded FROM booklists';
 
 
@@ -21,7 +22,7 @@ $querybooklists = '
    $statement->closeCursor();
 
    foreach ($booklists as $booklist) {
-        if($author == $booklist["author"]){
+        if($author == $booklist["author"] && $book_id != $bookid["bookId"]) {
              $_SESSION["add_error"] = "Invalid data, Duplicate author. Try again.";
         $url = "error.php";
         header("Location: " . $url);
@@ -41,20 +42,29 @@ $querybooklists = '
      }
 
 
-    $query = 'INSERT INTO booklists (title, author, genre, publicationyear, dateadded)
-         VALUES (:title, :author, :genre, :publicationyear, :dateadded)';
+    $query = '
+        UPDATE booklists
+        SET title = :title,
+        author = :author,
+        genre = :genre,
+        publicationyear = :publicationyear,
+        dateadded = :dateadded
+        WHERE bookId= :bookId
+    ';
+    
 
     $statement = $db->prepare($query);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':author', $author);
     $statement->bindValue(':genre', $genre);
     $statement->bindValue(':publicationyear', $publicationyear);
-    $statement->bindValue('dateadded', $dateadded);
+    $statement->bindValue(':dateadded', $dateadded);
+    $statement->bindValue(':bookId', $book_Id);
     $statement->execute();
     $statement->closeCursor();
 
     $_SESSION["title"] = $title . " " . $author;
-    $url = "add_confirmation.php";
+    $url = "update_confirmation.php";
     header("Location: " . $url);
     die();
 

@@ -6,7 +6,7 @@
 <html>
 
     <head>
-        <title>Book Manager - Add Book Confirmation</title>
+        <title>Book Manager - Update Book Confirmation</title>
         <link rel="stylesheet" type="text/css" href="css/contact.css" />
     </head>
     
@@ -14,9 +14,10 @@
         <?php include("header.php"); ?>
 
         <main>
-            <h2>Add Book Confirmation</h2>
+            <h2>Update Book Confirmation</h2>
             <p>
-                Thank you, <?php echo $_SESSION["book"]; ?> for adding information.
+                Thank you, <?php echo $_SESSION["book"]; ?> for updating information.
+                We look forward to continuing to serve you.
             <p>
 
             <p><a href="index.php">Back to Home</a></p>

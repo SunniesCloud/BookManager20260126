@@ -2,10 +2,10 @@
 
 require("database.php");
 
-    $queryBooklists = '
-        SELECT title, author, genre, publicationyear, dateadded FROM booklists';
- 
-    $statement = $db->prepare($queryBooklists);
+    $querybooklists = '
+        SELECT bookId, title, author, genre, publicationyear, dateadded FROM booklists';
+
+    $statement = $db->prepare($querybooklists);
     $statement->execute();
     $booklists = $statement->fetchAll();
     $statement->closeCursor();
@@ -23,7 +23,7 @@ require("database.php");
     <body>
         <?php include("header.php"); ?>
         <main>
-            <h2>Book List</h2>
+            <h2>Book Lists</h2>
             <table>
                 <tr>
                     <th>title</th>
@@ -31,7 +31,8 @@ require("database.php");
                     <th>genre</th>
                     <th>publicationyear</th>
                     <th>dateadded</th>
-                    
+                    <th>&nbsp;</th> <!-- for uodate -->
+                    <th>&nbsp;</th> <!-- for delete -->
                 </tr>
  
                 <?php foreach ($booklists as $booklist): ?>
@@ -41,7 +42,18 @@ require("database.php");
                         <td><?php echo htmlspecialchars($booklist['genre']); ?></td>
                         <td><?php echo htmlspecialchars($booklist['publicationyear']); ?></td>
                         <td><?php echo htmlspecialchars($booklist['dateadded']); ?></td>
-                        
+                        <td>
+                            <form action="update_booklist_form.php" method="post">
+                                <input type="hidden" name="book_id" value="<?php echo $booklist['bookId']; ?>" />
+                                <input type="submit" value="Update" />
+                            </form>
+                        </td>
+                        <td>
+                            <form action="delete_booklist.php" method="post">
+                                <input type="hidden" name="book_id" value="<?php echo $booklist['bookId']; ?>" />
+                                <input type="submit" value="Delete" />
+                            </form>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
  
