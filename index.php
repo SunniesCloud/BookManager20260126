@@ -31,6 +31,7 @@ require("database.php");
                     <th>genre</th>
                     <th>publicationyear</th>
                     <th>dateadded</th>
+                    <th>photo</th>
                     <th>&nbsp;</th> <!-- for uodate -->
                     <th>&nbsp;</th> <!-- for delete -->
                 </tr>
@@ -42,6 +43,7 @@ require("database.php");
                         <td><?php echo htmlspecialchars($booklist['genre']); ?></td>
                         <td><?php echo htmlspecialchars($booklist['publicationyear']); ?></td>
                         <td><?php echo htmlspecialchars($booklist['dateadded']); ?></td>
+                        <td></td>
                         <td>
                             <form action="update_booklist_form.php" method="post">
                                 <input type="hidden" name="book_id" value="<?php echo $booklist['bookId']; ?>" />

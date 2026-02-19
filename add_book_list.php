@@ -51,8 +51,11 @@ require("database.php");
                     <label>author:</label>
                     <input type="author" name="author" /><br />
 
+                    <label>Upload Image:</label>
+                    <input type="file" name="file1" /><br />
 
-                 </div>
+
+                </div>
 
                  <div id="buttons">
                     <label>&nbsp;</label>

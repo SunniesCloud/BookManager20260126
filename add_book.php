@@ -7,12 +7,16 @@ $author = filter_input(INPUT_POST, 'author');
 $genre = filter_input(INPUT_POST, 'genre');
 $publicationyear = filter_input(INPUT_POST, 'publicationyear');
 $dateadded = filter_input(INPUT_POST, 'dateadded');
+$image = $_FILES['image'];
 
 require_once('database.php');
+require_once('image.php');
+
+$base_dir = 'images';
 
 
 $querybooklists = '
-       SELECT bookId, title, author, genre, publicationyear, dateadded FROM booklists';
+       SELECT bookId, title, author, genre, publicationyear, dateadded, imagename FROM booklists';
 
 
    $statement = $db->prepare($querybooklists);
@@ -27,8 +31,7 @@ $querybooklists = '
         header("Location: " . $url);
         die();
 
-     }
-    
+      }
     }
 
    
